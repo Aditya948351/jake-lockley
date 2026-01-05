@@ -1,324 +1,470 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PM‑AJAY — Full Technical Documentation</title>
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#9aa6b2;
-      --accent:#0ea5a4; --accent-2:#3b82f6; --accent-3:#fb923c;
-      --glass: rgba(255,255,255,0.03);
-      --mono: "Roboto Mono", "Fira Code", monospace;
-      color-scheme: dark;
-    }
-    html,body{height:100%}
-    body{
-      margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#071028 0%, #071827 70%); color:#e6eef6;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-    }
-    .container{max-width:1200px;margin:28px auto;padding:28px;}
-    header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
-    header h1{margin:0;font-size:22px;letter-spacing:0.2px}
-    header p{margin:0;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:300px 1fr;gap:20px}
-    nav{background:var(--card);border-radius:10px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-    nav h3{margin:0 0 12px 0;font-size:14px;color:var(--accent)}
-    nav ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
-    nav a{color:#bcd5df;text-decoration:none;font-size:14px;padding:8px;border-radius:6px;display:block}
-    nav a:hover{background:var(--glass);color:#fff}
-    main{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01)); padding:22px;border-radius:12px;box-shadow:0 6px 24px rgba(3,8,20,0.6)}
-    section{margin-bottom:26px}
-    section h2{margin:0 0 10px 0;font-size:18px;color:var(--accent-2)}
-    .muted{color:var(--muted);font-size:14px}
-    .card{background:rgba(255,255,255,0.02);padding:16px;border-radius:8px;margin-top:12px}
-    .row{display:flex;gap:12px;flex-wrap:wrap}
-    .pill{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted)}
-    pre{background:#061426;padding:12px;border-radius:8px;overflow:auto;font-family:var(--mono);font-size:13px;color:#b9d7e6}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left;font-size:14px}
-    th{color:var(--accent);font-weight:600}
-    .small{font-size:13px;color:var(--muted)}
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-    .diagram{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));padding:12px;border-radius:8px}
-    /* Responsive */
-    @media (max-width:980px){ .grid{grid-template-columns:1fr; } nav{order:2} main{order:1} header{flex-direction:column;align-items:flex-start}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gov-AI | Intelligent Complaint Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc;
+        }
 
-  <!-- Mermaid for diagrams -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({startOnLoad:true, theme: 'dark'});</script>
+        .gradient-text {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-pattern {
+            background-color: #ffffff;
+            background-image: radial-gradient(#cbd5e1 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+
+        .step-card:hover .step-number {
+            transform: scale(1.1) rotate(10deg);
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .role-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <header>
-      <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700">PM</div>
-      <div>
-        <h1>PM‑AJAY — Full Technical Documentation</h1>
-        <p class="muted">Comprehensive platform design: Citizen Android app, Officer & Admin portlets, Firebase & Cloudinary integration, CP engine, PFMS payouts, and on‑device ML verification.</p>
-      </div>
+<body class="text-slate-900">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="bg-blue-600 p-2 rounded-lg text-white">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">Gov<span class="text-blue-600">AI</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#problem" class="hover:text-blue-600 transition">The Problem</a>
+                    <a href="#features" class="hover:text-blue-600 transition">Features</a>
+                    <a href="#workflow" class="hover:text-blue-600 transition">How it Works</a>
+                    <a href="#tech" class="hover:text-blue-600 transition">Tech Stack</a>
+                </div>
+                <button class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+                    Launch Portal
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-20 hero-pattern border-b border-slate-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold mb-6 animate__animated animate__fadeInDown">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                NEXT-GEN GOVERNANCE
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate__animated animate__fadeInUp">
+                AI-Driven <span class="gradient-text">Public Service</span> <br>Redressal System
+            </h1>
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-10 animate__animated animate__fadeInUp animate__delay-1s">
+                Bridging the gap between citizens and administration through intelligent NLP categorization, priority prediction, and transparent human-in-the-loop governance.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate__animated animate__fadeInUp animate__delay-1s">
+                <a href="#workflow" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-slate-800 transition">
+                    Explore Workflow <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="#problem" class="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-semibold hover:bg-slate-50 transition">
+                    Read Problem Statement
+                </a>
+            </div>
+            
+            <!-- Hero Dashboard Mockup -->
+            <div class="mt-16 relative mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-white shadow-2xl p-4 animate__animated animate__zoomIn animate__delay-1s">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-100 pb-2">
+                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                    <div class="ml-4 text-xs font-mono text-slate-400">gov-ai-dashboard.v1</div>
+                </div>
+                <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="h-24 bg-blue-50 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-2xl font-bold text-blue-600">1,284</span>
+                        <span class="text-[10px] text-blue-400 uppercase font-bold tracking-widest">Active Tickets</span>
+                    </div>
+                    <div class="h-24 bg-green-50 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-2xl font-bold text-green-600">92%</span>
+                        <span class="text-[10px] text-green-400 uppercase font-bold tracking-widest">SLA Compliance</span>
+                    </div>
+                    <div class="h-24 bg-purple-50 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-2xl font-bold text-purple-600">AI</span>
+                        <span class="text-[10px] text-purple-400 uppercase font-bold tracking-widest">Auto-Categorization</span>
+                    </div>
+                </div>
+                <div class="h-48 bg-slate-50 rounded-lg w-full flex items-end p-4 space-x-2">
+                    <div class="w-1/6 bg-blue-200 h-1/2 rounded-t-sm"></div>
+                    <div class="w-1/6 bg-blue-300 h-3/4 rounded-t-sm"></div>
+                    <div class="w-1/6 bg-blue-400 h-2/3 rounded-t-sm"></div>
+                    <div class="w-1/6 bg-blue-500 h-full rounded-t-sm"></div>
+                    <div class="w-1/6 bg-blue-600 h-4/5 rounded-t-sm"></div>
+                    <div class="w-1/6 bg-blue-400 h-1/2 rounded-t-sm"></div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <div class="grid">
-      <nav>
-        <h3>Quick Navigation</h3>
-        <ul>
-          <li><a href="#exec">Executive summary</a></li>
-          <li><a href="#why">Why we build</a></li>
-          <li><a href="#architecture">Technical architecture</a></li>
-          <li><a href="#flows">User flows & diagrams</a></li>
-          <li><a href="#apis">Backend APIs (trimmed)</a></li>
-          <li><a href="#ml">On-device ML & HF fallback</a></li>
-          <li><a href="#cp">Community Points & Leaderboard</a></li>
-          <li><a href="#security">Security & Privacy</a></li>
-          <li><a href="#db">DB & Audit</a></li>
-          <li><a href="#plan">Implementation plan</a></li>
-          <li><a href="#artifacts">Deliverables</a></li>
-        </ul>
-      </nav>
+    <!-- Problem Section -->
+    <section id="problem" class="py-24 bg-white reveal">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">The Fragmentation Problem</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        In many cities, citizen complaints regarding water supply, roads, electricity, and sanitation are handled through fragmented channels like phone calls, emails, or walk-in counters.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-red-50 p-2 rounded text-red-600">
+                                <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Lack of Intelligence</h4>
+                                <p class="text-sm text-slate-500">Manual categorization leads to misrouted tickets and delayed responses.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-red-50 p-2 rounded text-red-600">
+                                <i data-lucide="clock" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">SLA Blindness</h4>
+                                <p class="text-sm text-slate-500">Critical breaches go unnoticed without real-time monitoring and analytics.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-red-50 p-2 rounded text-red-600">
+                                <i data-lucide="user-x" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Transparency Gap</h4>
+                                <p class="text-sm text-slate-500">Citizens experience low trust due to a lack of updates on complaint status.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                        <i data-lucide="phone-off" class="text-slate-400 mb-4"></i>
+                        <p class="text-sm font-medium">Uncoordinated Channels</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 mt-8">
+                        <i data-lucide="file-warning" class="text-slate-400 mb-4"></i>
+                        <p class="text-sm font-medium">Misrouted Grievances</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 -mt-8">
+                        <i data-lucide="activity" class="text-slate-400 mb-4"></i>
+                        <p class="text-sm font-medium">Poor Accountability</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                        <i data-lucide="users" class="text-slate-400 mb-4"></i>
+                        <p class="text-sm font-medium">Manual Overhead</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <main>
-        <section id="exec">
-          <h2>Executive summary</h2>
-          <div class="muted">PM‑AJAY is an offline‑first Android app (Jetpack Compose) with officer/admin web portals. It enables document capture, on-device ML verification, secure uploads to Cloudinary, authoritative storage and sync in Firebase, a CP (Community Points) engine, and PFMS integration for payouts.</div>
-          <div class="card">
-            <strong>Core goals:</strong>
-            <ul class="small">
-              <li>Faster, auditable benefit delivery for low‑connectivity, low‑literacy citizens.</li>
-              <li>Privacy-preserving on‑device verification (OCR, face match, liveness).</li>
-              <li>Learn‑and‑earn CP engine that circulates value locally via merchant redemption.</li>
-              <li>Officer + Admin workflows to verify, approve and reconcile funds (PFMS).</li>
-            </ul>
-          </div>
-        </section>
+    <!-- Solution/Workflow Section -->
+    <section id="workflow" class="py-24 bg-slate-50 reveal">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Intelligent Lifecycle</h2>
+                <p class="text-slate-600">How AI assists the grievance journey from submission to closure.</p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-blue-200 -z-10"></div>
+                
+                <!-- Step 1 -->
+                <div class="step-card bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center relative">
+                    <div class="step-number w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-500 mx-auto mb-4 transition-all duration-300">1</div>
+                    <h3 class="font-bold mb-2">Registration</h3>
+                    <p class="text-xs text-slate-500">Citizen uploads complaint with media & GPS coordinates.</p>
+                    <div class="mt-4 text-blue-600"><i data-lucide="edit-3" class="mx-auto"></i></div>
+                </div>
 
-        <section id="why">
-          <h2>Why we are building this — Government hardships</h2>
-          <div class="card">
-            <ul>
-              <li><strong>Low accessibility & digital literacy:</strong> Many beneficiaries cannot use web portals; offline & local language support is essential.</li>
-              <li><strong>High verification cost & delays:</strong> Repeated field travel and manual paperwork slows disbursement.</li>
-              <li><strong>Data fragmentation & leakage:</strong> Paper systems cause duplicates, ghost claims, and poor audit trails.</li>
-              <li><strong>Poor impact measurement:</strong> Slow reporting hinders policy response — we provide near‑real‑time KPIs.</li>
-              <li><strong>Local economic under‑circulation:</strong> CPs redeemed at local merchants stimulate local economies, creating multiplier effects.</li>
-            </ul>
-          </div>
-        </section>
+                <!-- Step 2 -->
+                <div class="step-card bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center relative scale-110 z-10 border-blue-200 ring-4 ring-blue-50">
+                    <div class="step-number w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-white mx-auto mb-4">2</div>
+                    <h3 class="font-bold mb-2">AI Triage</h3>
+                    <p class="text-xs text-slate-500">NLP predicts category, priority, and routes to correct department.</p>
+                    <div class="mt-4 text-blue-600 floating"><i data-lucide="cpu" class="mx-auto"></i></div>
+                </div>
 
-        <section id="architecture">
-          <h2>Technical architecture — concise</h2>
-          <div class="muted">High-level components and responsibilities (Firebase + Cloudinary + on‑device ML)</div>
+                <!-- Step 3 -->
+                <div class="step-card bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center relative">
+                    <div class="step-number w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-500 mx-auto mb-4 transition-all duration-300">3</div>
+                    <h3 class="font-bold mb-2">Resolution</h3>
+                    <p class="text-xs text-slate-500">Officer updates status & uploads evidence of work.</p>
+                    <div class="mt-4 text-blue-600"><i data-lucide="check-circle" class="mx-auto"></i></div>
+                </div>
 
-          <div class="card">
-            <h3 class="small">Actors / Clients</h3>
-            <div class="row">
-              <div class="pill">Citizen (Mobile)</div>
-              <div class="pill">Gram Officer (Mobile)</div>
-              <div class="pill">District Officer (Web)</div>
-              <div class="pill">PM‑AJAY Head / Admin (Web)</div>
+                <!-- Step 4 -->
+                <div class="step-card bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center relative">
+                    <div class="step-number w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-500 mx-auto mb-4 transition-all duration-300">4</div>
+                    <h3 class="font-bold mb-2">Feedback</h3>
+                    <p class="text-xs text-slate-500">Citizen rates service, closing the loop with data insights.</p>
+                    <div class="mt-4 text-blue-600"><i data-lucide="star" class="mx-auto"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Multi-Layer Governance -->
+    <section class="py-24 bg-white reveal">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl font-bold mb-4">Multi-Layer Governance</h2>
+                    <p class="text-slate-600">The platform implements a structured role-based access system to ensure accountability at every tier.</p>
+                </div>
+                <div class="flex gap-2">
+                    <div class="px-4 py-2 rounded-lg bg-blue-50 text-blue-700 text-sm font-bold border border-blue-100">HUMAN-IN-THE-LOOP</div>
+                </div>
             </div>
 
-            <h3 class="small" style="margin-top:12px">Backend & Integrations</h3>
-            <div class="row" style="margin-top:8px">
-              <div class="pill">Firebase Auth & Firestore / Realtime DB (geopoints & leaderboard)</div>
-              <div class="pill">Cloud Functions / Backend services (Sync, CP Engine, Audit)</div>
-              <div class="pill">Cloudinary (document storage via signed uploads)</div>
-              <div class="pill">PFMS (payments / treasury)</div>
-              <div class="pill">Optional: Hugging Face / Render for hosted ML fallback</div>
+            <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Citizen -->
+                <div class="role-card bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-6 text-blue-600">
+                        <i data-lucide="user"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Citizen</h4>
+                    <ul class="text-xs text-slate-500 space-y-2">
+                        <li>• File & Track Complaints</li>
+                        <li>• Community Discussion</li>
+                        <li>• AI Assistant Guidance</li>
+                    </ul>
+                </div>
+                <!-- Officer -->
+                <div class="role-card bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-6 text-green-600">
+                        <i data-lucide="briefcase"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Local Officer</h4>
+                    <ul class="text-xs text-slate-500 space-y-2">
+                        <li>• Field Investigation</li>
+                        <li>• Update Status & Notes</li>
+                        <li>• Upload Action Photos</li>
+                    </ul>
+                </div>
+                <!-- Dept Admin -->
+                <div class="role-card bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-6 text-purple-600">
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Dept. Admin</h4>
+                    <ul class="text-xs text-slate-500 space-y-2">
+                        <li>• Assign/Reassign Work</li>
+                        <li>• Monitor SLA Compliance</li>
+                        <li>• Handle Escalations</li>
+                    </ul>
+                </div>
+                <!-- Authority -->
+                <div class="role-card bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-6 text-orange-600">
+                        <i data-lucide="bar-chart-3"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Authority</h4>
+                    <ul class="text-xs text-slate-500 space-y-2">
+                        <li>• Aggregate Dashboards</li>
+                        <li>• Hotspot Trends</li>
+                        <li>• Policy Planning</li>
+                    </ul>
+                </div>
+                <!-- Super Admin -->
+                <div class="role-card bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-6 text-red-600">
+                        <i data-lucide="settings"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">System Admin</h4>
+                    <ul class="text-xs text-slate-500 space-y-2">
+                        <li>• User Management</li>
+                        <li>• AI Model Deployment</li>
+                        <li>• Audit Logs</li>
+                    </ul>
+                </div>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="flows">
-          <h2>User flows & diagrams</h2>
-          <div class="muted">Below are textual and Mermaid diagrams of the end‑to‑end flows: authentication & verification, document uploads, verification & approval, CP awarding and redemption.</div>
-
-          <div class="card diagram">
-            <h3 class="small">System overview (flowchart)</h3>
-            <div class="diagram">
-              <div class="mermaid">
-flowchart LR
-  A[Citizen App (Mobile)] -->|Open App| Auth[Firebase Auth]
-  Gram[Gram Officer] -->|Assist| OfficerQueue[Officer Queue (Web)]
-  Dist[District Officer] --> OfficerQueue
-  Admin[PM-AJAY Head] --> AdminUI[Admin Portal]
-  A -->|Auth/Sync/Upload| BackendAPI[Cloud Functions / Backend]
-  OfficerQueue --> BackendAPI
-  AdminUI --> BackendAPI
-  BackendAPI --> FirebaseDB[Firebase Firestore / Realtime DB]
-  BackendAPI --> Cloudinary[Cloudinary (Docs)]
-  BackendAPI --> PFMS[PFMS / Treasury]
-  A --- OnDevice[On-device ML: OCR/Face/Liveness]
-  OnDevice --- Cloudinary
-  CP[CP Engine] --> FirebaseDB
-  BackendAPI --> CP
-  Orchestrator[Verification Orchestrator] --> OfficerQueue
-              </div>
+    <!-- Key Features Details -->
+    <section id="features" class="py-24 bg-slate-900 text-white reveal">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Powerful Core Features</h2>
+                <p class="text-slate-400">Beyond simple ticketing: a full-spectrum administrative engine.</p>
             </div>
-          </div>
-
-          <div class="card diagram" style="margin-top:12px">
-            <h3 class="small">Sequence: registration → verification → approval</h3>
-            <div class="diagram">
-              <div class="mermaid">
-sequenceDiagram
-  participant C as Citizen App
-  participant F as Firebase Auth
-  participant M as On-device ML
-  participant CL as Cloudinary
-  participant B as Backend (Cloud Functions)
-  participant O as Officer Web
-  participant A as Admin Web
-  participant P as PFMS
-  participant FB as Firebase DB
-
-  Note over C,F: 1. App open & Aadhaar OTP verification
-  C->>F: Verify phone + Aadhaar-last4 proof (consent)
-  Note over C,M: 2. Capture 4 docs & run ML locally: Aadhaar, Domicile, Income, Caste validity
-  C->>M: OCR, face-match, liveness
-  M-->>C: local verdict & masked fields (last4)
-  C->>CL: Upload images via signed Cloudinary URLs
-  CL-->>C: upload paths
-  C->>B: Submit application + doc metadata (sync/push)
-  B-->>C: ack + server_id
-  B->>O: assign to officer
-  O->>B: verify docs + field check
-  O->>A: recommend funds (if needed)
-  A->>B: approve -> create payment ledger
-  B->>P: send payment order to PFMS
-  P-->>B: payment confirmation
-  B->>FB: write CP award + leaderboard update
-  FB-->>C: push notification / leaderboard update
-              </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- AI Assistant -->
+                <div class="border border-slate-800 p-8 rounded-2xl hover:bg-slate-800/50 transition">
+                    <i data-lucide="message-square" class="text-blue-400 mb-6"></i>
+                    <h4 class="text-xl font-bold mb-3">AI Talking Assistant</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Guidance-only conversational AI that helps citizens choose categories, explains status in plain language, and answers FAQs without human intervention.
+                    </p>
+                </div>
+                <!-- Community Discussion -->
+                <div class="border border-slate-800 p-8 rounded-2xl hover:bg-slate-800/50 transition">
+                    <i data-lucide="users-2" class="text-green-400 mb-6"></i>
+                    <h4 class="text-xl font-bold mb-3">Community Space</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Public issue threads where citizens discuss ward-level problems, reducing duplicate complaints and fostering civic engagement.
+                    </p>
+                </div>
+                <!-- Predictive Analytics -->
+                <div class="border border-slate-800 p-8 rounded-2xl hover:bg-slate-800/50 transition">
+                    <i data-lucide="zap" class="text-yellow-400 mb-6"></i>
+                    <h4 class="text-xl font-bold mb-3">SLA Breach Prediction</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        System flags complaints likely to breach deadlines based on officer backlog and historical seasonal trends (like monsoons).
+                    </p>
+                </div>
+                <!-- Rich Media -->
+                <div class="border border-slate-800 p-8 rounded-2xl hover:bg-slate-800/50 transition">
+                    <i data-lucide="image" class="text-purple-400 mb-6"></i>
+                    <h4 class="text-xl font-bold mb-3">Evidence-Based Flow</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Mandatory photo evidence from officers for resolution and optional video links from citizens ensure verifiable outcomes.
+                    </p>
+                </div>
+                <!-- Dashboards -->
+                <div class="border border-slate-800 p-8 rounded-2xl hover:bg-slate-800/50 transition">
+                    <i data-lucide="map-pin" class="text-red-400 mb-6"></i>
+                    <h4 class="text-xl font-bold mb-3">Hotspot Mapping</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Data-driven insights to identify recurring issue wards, helping authorities make policy-level resource allocations.
+                    </p>
+                </div>
+                <!-- Audit -->
+                <div class="border border-slate-800 p-8 rounded-2xl hover:bg-slate-800/50 transition">
+                    <i data-lucide="history" class="text-cyan-400 mb-6"></i>
+                    <h4 class="text-xl font-bold mb-3">Sovereign Audit Trail</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Complete timeline tracking of who handled which ticket, when it was updated, and any AI overrides performed by officers.
+                    </p>
+                </div>
             </div>
-          </div>
+        </div>
+    </section>
 
-        </section>
+    <!-- Technology Stack -->
+    <section id="tech" class="py-24 bg-white reveal">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-12">Technology Stack</h2>
+            <div class="flex flex-wrap justify-center gap-12">
+                <div class="group">
+                    <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-2 group-hover:scale-110 transition mx-auto">
+                        <i data-lucide="code-2" class="text-slate-700"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase text-slate-400">Django Backend</span>
+                </div>
+                <div class="group">
+                    <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-2 group-hover:scale-110 transition mx-auto">
+                        <i data-lucide="database" class="text-slate-700"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase text-slate-400">PostgreSQL/MySQL</span>
+                </div>
+                <div class="group">
+                    <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-2 group-hover:scale-110 transition mx-auto">
+                        <i data-lucide="brain-circuit" class="text-blue-600"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase text-slate-400">NLP / Python AI</span>
+                </div>
+                <div class="group">
+                    <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-2 group-hover:scale-110 transition mx-auto">
+                        <i data-lucide="layout" class="text-slate-700"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase text-slate-400">Modern Frontend</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="apis">
-          <h2>Backend APIs (trimmed & prioritized)</h2>
-          <div class="muted">This is the focused API set to implement (Firebase + Cloudinary + on‑device ML).</div>
-          <div class="card">
-            <table>
-              <thead><tr><th>API (Title)</th><th>Short use case</th></tr></thead>
-              <tbody>
-                <tr><td>Authentication API</td><td>Verify Firebase ID token, issue app JWT, register device for FCM</td></tr>
-                <tr><td>Profile API</td><td>Get / update user profile, language and consent flags, phone_verified/streak</td></tr>
-                <tr><td>Beneficiary Profile API</td><td>Create & manage beneficiary records linked to user</td></tr>
-                <tr><td>Application (Scheme) API</td><td>Create / edit / submit / list scheme applications + statuses</td></tr>
-                <tr><td>Signed Uploads API</td><td>Issue signed Cloudinary upload presets / URLs for images/docs</td></tr>
-                <tr><td>Document Management API</td><td>Finalize uploads, record doc metadata & verification status</td></tr>
-                <tr><td>Sync Push API</td><td>Accept batched offline client mutations; map local→server ids</td></tr>
-                <tr><td>Sync Pull API</td><td>Return deltas since last sync token for Room DB</td></tr>
-                <tr><td>CP Engine API</td><td>Award CP events, enforce daily/month caps, store cp_transaction</td></tr>
-                <tr><td>CP Balance API</td><td>Return cp_balance & recent cp_transactions</td></tr>
-                <tr><td>Streak Claim API</td><td>Enforce 24‑hour claim rule & award CP atomically</td></tr>
-                <tr><td>Redemption API</td><td>Reserve CP, generate voucher/QR, mark redemption pending</td></tr>
-                <tr><td>Merchant Directory API</td><td>List onboarded merchants & CP conversion rules</td></tr>
-                <tr><td>Merchant Redemption Portal API</td><td>Merchant confirms voucher/QR -> complete redemption</td></tr>
-                <tr><td>Notifications API</td><td>Send FCM / SMS / Email templates for events</td></tr>
-                <tr><td>Health & Metrics API</td><td>Service liveness and basic metrics</td></tr>
-              </tbody>
-            </table>
-            <div class="small" style="margin-top:8px">Note: all mutating APIs must log immutable audit entries and require idempotency_key for offline resilience.</div>
-          </div>
-        </section>
+    <!-- Footer -->
+    <footer class="bg-slate-50 py-12 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-2 rounded-lg text-white">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight">Gov<span class="text-blue-600">AI</span></span>
+            </div>
+            <div class="text-slate-500 text-sm">
+                &copy; 2024 AI-Driven Case Management System. Dedicated to Digital Governance.
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-slate-400 hover:text-slate-600 transition"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-slate-600 transition"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
 
-        <section id="ml">
-          <h2>On‑device ML & Hosted fallback</h2>
-          <div class="card">
-            <h3 class="small">On‑device (preferred)</h3>
-            <ul class="small">
-              <li><strong>OCR:</strong> ML Kit Text Recognition or TFLite OCR for extracting name, DOB, ID fragments (mask Aadhaar except last4).</li>
-              <li><strong>Face detection & embeddings:</strong> MobileFaceNet / TFLite embedding model + cosine similarity for selfie ↔ ID photo comparison (thresholds: >=0.75 accept, 0.6–0.75 manual review).</li>
-              <li><strong>Liveness:</strong> Blink/head-turn via MediaPipe landmarks or small TFLite liveness model.</li>
-              <li><strong>Document QC:</strong> Blur/glare/rotation checks to require retake prior to upload.</li>
-            </ul>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-            <h3 class="small" style="margin-top:8px">Hosted fallback (optional)</h3>
-            <div class="small">Use Hugging Face / Render endpoints for high‑accuracy OCR, face‑match or batch reprocessing of ambiguous items. Keep calls server-side and cache results.</div>
-          </div>
-        </section>
+        // Reveal on scroll logic
+        window.addEventListener('scroll', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const revealTop = reveal.getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (revealTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
+            });
+        });
 
-        <section id="cp">
-          <h2>Community Points (CP) engine & Leaderboard</h2>
-          <div class="card">
-            <ul>
-              <li><strong>Rules:</strong> cp_rules table drives events → points mapping, daily/month caps enforced at DB level.</li>
-              <li><strong>Award flow:</strong> POST CP event (idempotent) → insert cp_transaction → atomically update cp_balance (SELECT FOR UPDATE) → write audit → push leaderboard update to Firebase (Realtime DB / Firestore).</li>
-              <li><strong>Leaderboard:</strong> Stored in Firebase for realtime reads; backend is source-of-truth (DB) and writes leaderboard increments after DB commit (retry on failure).</li>
-              <li><strong>Streaks:</strong> /streak/claim locks user row and enforces 24‑hour window; award CP if allowed.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="security">
-          <h2>Security, privacy & compliance</h2>
-          <div class="card">
-            <ul class="small">
-              <li><strong>Aadhaar & PII:</strong> never store raw Aadhaar; store HMAC‑SHA256(aadhaar + salt) + last4; capture explicit consent; run legal review before any UIDAI eKYC integration.</li>
-              <li><strong>Auth & RLS:</strong> Firebase Auth for identity; backend maps auth_uid → users and enforces server-side checks; Firestore security rules + backend RLS-like checks for domain logic.</li>
-              <li><strong>Encryption:</strong> TLS everywhere; Cloudinary + Firebase encrypted at rest; local device storage encryption via AndroidKeyStore & EncryptedFile.</li>
-              <li><strong>Audit:</strong> append-only audit_logs for all mutating actions (actor, role, action, old/new payload masked).</li>
-              <li><strong>Secrets:</strong> store service keys in secret vault/CI secrets; rotate regularly.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="db">
-          <h2>DB model highlights (concise)</h2>
-          <div class="card">
-            <table>
-              <thead><tr><th>Table</th><th>Purpose</th></tr></thead>
-              <tbody>
-                <tr><td>users</td><td>app users, auth_uid, role, phone_verified, aadhaar_hash (masked), last_streak_claim_at</td></tr>
-                <tr><td>beneficiaries</td><td>citizen records owned by user</td></tr>
-                <tr><td>applications</td><td>scheme applications, status, payload, assigned_officer</td></tr>
-                <tr><td>documents</td><td>metadata for Cloudinary uploads: storage_path, file_hash, verified</td></tr>
-                <tr><td>cp_transactions</td><td>immutable log of CP events</td></tr>
-                <tr><td>cp_balances</td><td>materialized current balance per beneficiary</td></tr>
-                <tr><td>payment_ledger</td><td>records payouts to PFMS and merchant settlements</td></tr>
-                <tr><td>audit_logs</td><td>append-only audit trail</td></tr>
-                <tr><td>verification_jobs</td><td>manual review jobs & evidence refs</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section id="plan">
-          <h2>Implementation plan (2‑week pilot focus)</h2>
-          <div class="card">
-            <ol>
-              <li><strong>Days 1–3:</strong> Auth mapping, Profile API, Signed Cloudinary uploads, Device registration (FCM).</li>
-              <li><strong>Days 4–8:</strong> Beneficiary + Application CRUD, Document management, On‑device ML capture flow, Room schema + WorkManager queue.</li>
-              <li><strong>Days 9–12:</strong> Sync Push/Pull, CP engine + Streak claim, Leaderboard write into Firebase.</li>
-              <li><strong>Days 13–15:</strong> Officer queue UI, Admin approve flow + Payment Ledger → PFMS test stub, Notifications.</li>
-            </ol>
-            <div class="small" style="margin-top:10px">Keep idempotency and audit from day one. Use feature flags to enable/disable hosted ML or PFMS until ready.</div>
-          </div>
-        </section>
-
-        <section id="artifacts">
-          <h2>Deliverables & next artifacts</h2>
-          <div class="card">
-            <ul class="small">
-              <li>OpenAPI skeleton for MUST APIs (auth, sync, cp, uploads)</li>
-              <li>Android sample: CameraX capture + ML Kit / TFLite embedding + Room + WorkManager</li>
-              <li>Backend FastAPI starter (Cloud Functions variant) for Firebase integration & Cloudinary uploads</li>
-              <li>DB schema SQL + audit trigger templates</li>
-              <li>Mermaid diagrams and architecture poster prompt for Gemini</li>
-            </ul>
-          </div>
-        </section>
-
-        <footer>
-          <div class="small">Generated from the PM‑AJAY chat summary. This file is a single‑document technical brief containing architecture, user flows, prioritized APIs, ML strategy, CP engine design and implementation plan for a pilot. For code stubs, OpenAPI, or Android sample generation, request the specific artifact and I will generate it.</div>
-        </footer>
-
-      </main>
-    </div>
-  </div>
+        // Trigger first set of reveals on load
+        window.dispatchEvent(new Event('scroll'));
+    </script>
 </body>
 </html>
